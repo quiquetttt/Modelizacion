@@ -1,0 +1,137 @@
+/* App.css */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f0f0; /* Color de fondo más suave */
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  text-align: center;
+  padding: 20px;
+}
+
+.calculator-container {
+  background-color: #ffffff; /* Fondo blanco */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  padding: 20px;
+  max-width: 400px; /* Ancho máximo del contenedor */
+  margin: 20px auto; /* Centrar horizontalmente */
+}
+
+.calculator-inputs {
+  margin-bottom: 20px;
+}
+
+.calculator-occupants {
+  margin-bottom: 20px;
+}
+
+.calculator-buttons {
+  margin-bottom: 20px;
+}
+
+.calculator-results {
+  text-align: left;
+}
+
+.input-container {
+  margin-bottom: 10px;
+}
+
+.input-container label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333; /* Color de texto oscuro */
+}
+
+.input-container input[type="number"],
+.input-container input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.button {
+  background-color: #007bff; /* Azul brillante */
+  color: #fff; /* Texto blanco */
+  font-size: 1em;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.button:hover {
+  background-color: #0056b3; /* Cambia el color al pasar el mouse */
+}
+
+.result-container {
+  background-color: #f9f9f9; /* Color de fondo para los resultados */
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.result-container h2,
+.result-container h3 {
+  margin-top: 0;
+}
+
+.result-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.result-container li {
+  margin-bottom: 5px;
+}
+
+/* RentDivisionCalculator.css */
+.calculator-container {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 400px;
+  margin: 20px auto;}
+
+.calculator-buttons button {
+  margin-right: 10px; /* Espacio entre los botones */
+  background-color: #4CAF50; /* Color de fondo verde */
+  color: white; /* Texto blanco */
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.calculator-buttons button:hover {
+  background-color: #45a049; /* Cambia el color al pasar el mouse */
+}
+
+.calculator-occupants button {
+  margin-right: 5px; /* Espacio entre los botones de ocupantes */
+  background-color: grey; /* Color de fondo rojo */
+  color: white; /* Texto blanco */
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.calculator-occupants button:hover {
+  background-color: #2fd37b; /* Cambia el color al pasar el mouse */
+}
+
+.calculator-inputs label,
+.calculator-inputs input[type="number"] {
+  display: block;
+  margin-bottom: 10px;
+}
