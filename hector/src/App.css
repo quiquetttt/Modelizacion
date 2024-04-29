@@ -135,3 +135,9 @@ body {
   display: block;
   margin-bottom: 10px;
 }
+/* Estilo para centrar el input de Total Rooms */
+.input-field {
+  text-align: center; /* Centra el texto horizontalmente */
+  margin: 0 auto; /* Ajusta el margen para centrar horizontalmente */
+  width: 120px; /* Ajusta el ancho del input */
+}
