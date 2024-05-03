@@ -3,18 +3,16 @@ import matplotlib.pyplot as plt
 def main():
     G = construccionTriangulo(4)
     precioGrafo(G)
-    
 
-def numeroVertices(x):
-    """Declaro el total con los 3 vertices iniciales y los 3*x vertices laterales"""
-    total = 3 + x*3
-    internos = 0
-    """Calculo el numero de vertices internos que habra"""
-    for k in range (x):
-        internos += k
-    return total+internos
-    
+
+
+
+
+"""Metodos para construir el triangulo"""
 """x = numero de vertices laterales (sin contar las dos esquinas)"""
+
+
+
 def construccionTriangulo(x):
     n = numeroVertices(x)
     G = nx.Graph()
@@ -22,7 +20,7 @@ def construccionTriangulo(x):
     vertices = []
     for k in range(n):
         vertices.append(k)
-    G.add_nodes_from(vertices)
+    G.add_nodes_from(vertices , decision = "")
     auxver = []
     aristas = []
     for k in range(1,x+3):
@@ -46,16 +44,52 @@ def construccionTriangulo(x):
     G.add_edges_from(aristas)
     return G
 
+def numeroVertices(x):
+    """Declaro el total con los 3 vertices iniciales y los 3*x vertices laterales"""
+    total = 3 + x*3
+    internos = 0
+    """Calculo el numero de vertices internos que habra"""
+    for k in range (x):
+        internos += k
+    return total+internos
 
 
-    
+"""Metodos para diseccionar el triangulo"""
 
+def sacarLaterales(G):
+    laterales = [0]
+
+
+def lateralIzq(G):
+    res = []
+    altura = G.graph["altura"]
+    nodo = 0 
+    for i in range(1,altura):
+        nodo = nodo+i
+        res.append(nodo)
+        
+    return res
+
+def lateralDer(G):
+    res = []
+    altura = G.graph["altura"]
+    nodo = 0 
+    for i in range(1,altura):
+        nodo = nodo +i +1
+        res.append(nodo)
+    return res
+
+def lateralAbj(G):
+    pass
+
+
+
+
+"""Metodos para poner precio a cada nodo"""
 
 def precioGrafo(G):
     for nodo in G.nodes:
         G.nodes[nodo]["precio"] = precioNodo(nodo,G)
-
-
 
 
 def precioNodo(nodo,G):
@@ -101,8 +135,7 @@ def precioAbajo(G,nodo):
 
         
 
-def precio(G,nodo):
-    pass
+
 
 
 def pruebas():
