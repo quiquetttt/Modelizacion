@@ -141,3 +141,121 @@ body {
   margin: 0 auto; /* Ajusta el margen para centrar horizontalmente */
   width: 120px; /* Ajusta el ancho del input */
 }
+/* Estilos para el botón desplegable */
+.dropbtn {
+  background-color: transparent;
+  color: rgb(145, 119, 119);
+  font-size: 1.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+/* Estilos para el contenido desplegable */
+.dropdown-content {
+  display: block;
+  position: absolute;
+  background-color: rgb(255, 255, 255);
+  min-width: 200px;
+  padding: 10px;
+  z-index: 1;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Oculta el contenido desplegable por defecto */
+.dropdown-content {
+  display: none;
+}
+
+/* Muestra el contenido desplegable cuando el botón es clicado */
+.dropdown-content.show {
+  display: block;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 200px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  z-index: 1;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: red;
+}
+.title-container {
+  /* Que este alineao en el centro */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.icon-container {
+  margin-left: 10px; /* Espacio entre el título y el icono */
+}
+
+.dropbtn {
+  background-color: transparent;
+  border: none;
+}
+
+.icon {
+  font-size: 20px; /* Tamaño del icono */
+  border-radius: 50%; /* Para hacerlo un círculo */
+  background-color: #ccc; /* Color de fondo del círculo */
+  width: 30px; /* Tamaño del contenedor del icono */
+  height: 30px; /* Tamaño del contenedor del icono */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333; /* Color del icono */
+}
+
+.dropdown-content {
+  position: absolute;
+  display: none;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+  text-align: center; /* Alineación del texto al centro */
+  left: 50%; /* Centra horizontalmente */
+  top: 50%; /* Centra verticalmente */
+  transform: translate(-50%, -50%); /* Centra completamente */
+}
+
+.dropdown-content.show {
+  display: block;
+}
+
+.show {
+  display: block;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: red;
+}
