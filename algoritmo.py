@@ -1,11 +1,11 @@
 import networkx as nx
-import matplotlib.pyplot as plt
 def main():
-    G = construccionTriangulo(4)
-    etiquetarGrafo(G)
-    for nodo in G.nodes:
-        print(nodo)
-        print(G.nodes[nodo])
+    
+    G = construccionTriangulo(4,1000)
+    print(type(list(G.nodes(data=True))))
+    print(G.nodes(data=True))
+        
+   
 
 def algoritmo():
     G = construccionTriangulo(4)
@@ -30,14 +30,15 @@ def tomarDecision():
 
 
 
-def construccionTriangulo(x):
+def construccionTriangulo(x,precio):
     n = numeroVertices(x)
     G = nx.Graph()
     G.graph["altura"] = x+2
+    G.graph["precio"] = precio
     vertices = []
     for k in range(n):
         vertices.append(k)
-    G.add_nodes_from(vertices , decision = "")
+    G.add_nodes_from(vertices)
     auxver = []
     aristas = []
     for k in range(1,x+3):
@@ -59,7 +60,11 @@ def construccionTriangulo(x):
             aristas.append(lis)
         auxver = []
     G.add_edges_from(aristas)
-    return G
+    precioGrafo(G)
+    etiquetarGrafo(G)
+    return(G)
+
+
 
 def numeroVertices(x):
     """Declaro el total con los 3 vertices iniciales y los 3*x vertices laterales"""
@@ -130,10 +135,10 @@ def etiquetarGrafo(G):
 
 def etiquetar_lat(G):
     lat = sacarLaterales(G)
-    pintura =0
+    jugador =0
     for elemento in lat:
-        pintura = (pintura%3)+1
-        G.nodes[elemento]["pintura"] = pintura
+        jugador = (jugador%3)+1
+        G.nodes[elemento]["jugador"] = jugador
 
 def etiquetar_centro(G):
     medio = sacarCentro(G)
@@ -142,10 +147,10 @@ def etiquetar_centro(G):
     latIzq.pop(-1)
     i = 1
     for elem in latIzq:
-        pintura = G.nodes[elem]["pintura"]
+        jugador = G.nodes[elem]["jugador"]
         for j in range(0, i):
-            pintura = (pintura % 3) + 1
-            G.nodes[medio[0]]["pintura"] = pintura
+            jugador = (jugador % 3) + 1
+            G.nodes[medio[0]]["jugador"] = jugador
             del medio[0]
         i += 1
 
@@ -156,21 +161,24 @@ def precioGrafo(G):
     for nodo in G.nodes:
         G.nodes[nodo]["precio"] = precioNodo(nodo,G)
 
+def reglaDe3(valor,G):
+    precio = G.graph["precio"]
+    altura = G.graph["altura"]-1
+    return (valor*precio)/altura
 
 def precioNodo(nodo,G):
     precio = []
     if nodo == 0:
-        precio = [0,0,5]
+        precio = [0,0,reglaDe3(5,G)]
     elif nodo ==1:
-        precio = [0,1,4]
+        precio = [0,reglaDe3(1,G),reglaDe3(4,G)]
     elif nodo == 2:
-        precio = [1,0,4]
+        precio = [reglaDe3(1,G),0,reglaDe3(4,G)]
     else:
-        precio.append(precioIzquierda(G,nodo))
-        precio.append(precioAbajo(G,nodo))
-        precio.append(precioDerecha(G,nodo))
+        precio.append(reglaDe3(precioIzquierda(G,nodo),G))
+        precio.append(reglaDe3(precioAbajo(G,nodo),G))
+        precio.append(reglaDe3(precioDerecha(G,nodo),G))
     return precio
-
 def precioIzquierda(G,nodo):
     fin = False
     contador = 0 
