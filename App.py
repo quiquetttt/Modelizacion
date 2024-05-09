@@ -51,7 +51,10 @@ def decision(input_decision : inputDecision):
     G.add_nodes_from(input_decision.lNodos)
     G.add_edges_from(input_decision.lAristas)
     centro = sacarCentro(G)
+    lNodos = list(G.nodes(data=True))
+    lAristas = list(G.edges)
     G.nodes[centro[input_decision.nodo]]["decision"] = input_decision.decision
     nodo = input_decision.nodo +1
     jugador = G.nodes[centro[nodo]]["jugador"]
     precios = G.nodes[centro[nodo]]["precio"]
+    output_crear = outputCrear(lNodos= lNodos, lAristas=lAristas,  nodo=0,jugador=jugador, precios=precios,final=True)

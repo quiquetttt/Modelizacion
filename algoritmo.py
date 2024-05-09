@@ -1,34 +1,4 @@
 import networkx as nx
-def main():
-    
-    G = construccionTriangulo(4,1000)
-    print(type(list(G.nodes(data=True))))
-    print(G.nodes(data=True))
-        
-   
-
-def algoritmo():
-    G = construccionTriangulo(4)
-    precioGrafo(G)
-    etiquetarGrafo(G)
-    centro = sacarCentro(G)
-    for nodo in centro:
-        tomarDecision(G,nodo)
-    
-
-def tomarDecision():
-    pass
-
-    
-
-
-
-
-
-"""Metodos para construir el triangulo"""
-"""x = numero de vertices laterales (sin contar las dos esquinas)"""
-
-
 
 def construccionTriangulo(x,precio):
     n = numeroVertices(x)
@@ -64,7 +34,8 @@ def construccionTriangulo(x,precio):
     etiquetarGrafo(G)
     return(G)
 
-
+def hayTriangulo(G,nodo):
+    pass
 
 def numeroVertices(x):
     """Declaro el total con los 3 vertices iniciales y los 3*x vertices laterales"""
@@ -179,6 +150,7 @@ def precioNodo(nodo,G):
         precio.append(reglaDe3(precioAbajo(G,nodo),G))
         precio.append(reglaDe3(precioDerecha(G,nodo),G))
     return precio
+
 def precioIzquierda(G,nodo):
     fin = False
     contador = 0 
@@ -205,7 +177,4 @@ def precioDerecha(G,nodo):
 
 def precioAbajo(G,nodo):
     return  G.graph["altura"] - G.nodes[nodo]["capa"]
-
-
-if __name__ == "__main__":
     main()
