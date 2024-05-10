@@ -1,11 +1,29 @@
 import React, { useState, useRef } from 'react';
-import RentDivisionCalculator from './componentes/RentDivisionCalculator.js';
 import './App.css';
+import { useNavigate} from 'react-router-dom';
 
 function App() {
     const [showMessage, setShowMessage] = useState(false);
-    const [selectedVariance, setSelectedVariance] = useState('');
     const dropdownRef = useRef(null);
+    const navigate = useNavigate();
+    const [totalRent, setTotalRent] = useState(1000);
+    const [totalOccupants, setTotalOccupants] = useState(0);
+    const [occupantNames, setOccupantNames] = useState([]);
+  
+    const handleTotalRentChange = (e) => {
+      setTotalRent(parseFloat(e.target.value));
+    };
+  
+    const handleTotalOccupantsChange = (occupants) => {
+      setTotalOccupants(occupants);
+      setOccupantNames(Array(occupants).fill(''));
+    };
+  
+    const handleOccupantNameChange = (index, name) => {
+      const newOccupantNames = [...occupantNames];
+      newOccupantNames[index] = name;
+      setOccupantNames(newOccupantNames);
+    };
   
     const toggleMessage = () => {
       setShowMessage(!showMessage);
@@ -15,31 +33,13 @@ function App() {
         }, 0);
       }
     };
-  
-    const handleVarianceChange = (e) => {
-      const value = e.target.value; // Obtiene el valor actual
-      if (value.length <= 2 && /^\d*$/.test(value)) {
-        // Verifica si el valor tiene máximo dos dígitos y solo contiene dígitos
-        setSelectedVariance(value);
-      }
-    };
-  
-    const handleConfirmVariance = () => {
-      if (selectedVariance) {
-        toggleMessage(); // Cierra la ventana desplegable si se ha seleccionado una varianza
-      }
-    };
-  
-    const handleCalculate = () => {
-      if (!selectedVariance) {
-        setShowMessage(true);
-      } else {
-        setShowMessage(false);
-        // Lógica para calcular aquí, o puedes pasar la varianza a otro componente para realizar el cálculo
-      }
-    };
+
+    const handleNavigate = () => {
+      navigate('/Inicio');
+    }
   
     return (
+      
       <div className="App">
         <header>
           <div className="title-container">
@@ -50,24 +50,41 @@ function App() {
               </button>
             </div>
           </div>
-          <p>Calculadora de división de alquiler</p>
-          <div className={`dropdown-content ${showMessage ? 'show' : ''}`}>
-            <span className="close" onClick={toggleMessage}>&times;</span>
-            <p>Seleccione la varianza en euros:</p>
-            <input
-              ref={dropdownRef}
-              type="number"
-              value={selectedVariance}
-              onChange={handleVarianceChange}
-              min={0}
-              step={1}
-              maxLength={2} // Limita la entrada a dos dígitos
-            />
-            <button onClick={handleConfirmVariance}>Confirmar</button> {/* Botón para confirmar la varianza */}
-            <p>Por favor, seleccione una varianza antes de calcular.</p>
-          </div>
+          <p>Calculadora de división de alquiler</p>        
         </header>
-        <RentDivisionCalculator selectedVariance={selectedVariance} onCalculate={handleCalculate} />
+        <div className="calculator-container">
+        <div className="calculator-inputs">
+          <label>Total Rent: </label>
+          <input
+            type="text"
+            value={`${totalRent}€`}
+            onChange={handleTotalRentChange}
+            className="input-field"
+            step="100"
+          />
+        </div>
+        <div className="calculator-occupants">
+          <p>Select Total Rooms:</p>
+          <div>
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
+              <button key={num} onClick={() => handleTotalOccupantsChange(num)}>{num}</button>
+            ))}
+          </div>
+          {Array.from({ length: totalOccupants }, (_, index) => (
+            <input
+              key={index}
+              type="text"
+              value={occupantNames[index]}
+              onChange={(e) => handleOccupantNameChange(index, e.target.value)}
+              placeholder={`Occupant ${index + 1} Name`}
+              className="input-field"
+            />
+          ))}
+        </div>
+      </div>
+        <div className="calculate-button">
+          <button onClick={handleNavigate}>Calcular</button>
+          </div>
       </div>
     );
   }

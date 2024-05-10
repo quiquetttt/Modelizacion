@@ -4,7 +4,7 @@ import App from '../App';
 
 export const Inicio = () => {
   return (
-    <div>Inicio</div>
+    <div>Dani putero</div>
   )
 }
 
