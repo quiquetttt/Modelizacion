@@ -1,5 +1,10 @@
 import networkx as nx
 
+def trianguloPerfecto(G,nodo):
+    adyacentes = list(G.neihbors(nodo))
+    print(adyacentes)
+
+
 def construccionTriangulo(x,precio):
     n = numeroVertices(x)
     G = nx.Graph()
@@ -8,7 +13,8 @@ def construccionTriangulo(x,precio):
     vertices = []
     for k in range(n):
         vertices.append(k)
-    G.add_nodes_from(vertices)
+    atributoComun = {"decision":0}
+    G.add_nodes_from(vertices, **atributoComun)
     auxver = []
     aristas = []
     for k in range(1,x+3):
@@ -34,8 +40,7 @@ def construccionTriangulo(x,precio):
     etiquetarGrafo(G)
     return(G)
 
-def hayTriangulo(G,nodo):
-    pass
+
 
 def numeroVertices(x):
     """Declaro el total con los 3 vertices iniciales y los 3*x vertices laterales"""
@@ -62,8 +67,6 @@ def sacarCentro(G):
     laterales = sacarLaterales(G)
     medio = [elemento for elemento in medio if elemento not in laterales]
     return medio
-
-
 
 def lateralIzq(G):
     res = []
@@ -177,4 +180,19 @@ def precioDerecha(G,nodo):
 
 def precioAbajo(G,nodo):
     return  G.graph["altura"] - G.nodes[nodo]["capa"]
-    main()
+"""
+G =construccionTriangulo(4,1000)
+nodos = list(G.nodes)
+nodos0 = [elem for elem in nodos if G.nodes[elem]["decision"]==0]
+nodos1 = [elem for elem in nodos if G.nodes[elem]["decision"]==1]
+nodos2 = [elem for elem in nodos if G.nodes[elem]["decision"]==2]
+nodos3 = [elem for elem in nodos if G.nodes[elem]["decision"]==3]
+print("Nodos decision 0")
+print(nodos0)
+print("Nodos decision 1")
+print(nodos1)
+print("Nodos decision 2")
+print(nodos2)
+print("Nodos decision 3")
+print(nodos3)
+"""
