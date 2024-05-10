@@ -1,7 +1,7 @@
 /* App.css */
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f0f0f0; /* Color de fondo más suave */
+  font-family: "Arial", sans-serif;
+  background-color: #cecbcb; /* Color de fondo más suave */
   margin: 0;
   padding: 0;
 }
@@ -98,11 +98,12 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
   max-width: 400px;
-  margin: 20px auto;}
+  margin: 20px auto;
+}
 
 .calculator-buttons button {
   margin-right: 10px; /* Espacio entre los botones */
-  background-color: #4CAF50; /* Color de fondo verde */
+  background-color: #4caf50; /* Color de fondo verde */
   color: white; /* Texto blanco */
   border: none;
   border-radius: 5px;
@@ -202,7 +203,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 .icon-container {
@@ -231,7 +231,7 @@ body {
   display: none;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   padding: 12px 16px;
   z-index: 1;
   text-align: center; /* Alineación del texto al centro */
@@ -259,3 +259,109 @@ body {
 .close:hover {
   color: red;
 }
+/*boton change*/
+.change-button {
+  background-color: #71a0d100;
+  color: #ffffff00;
+  font-size: 1em;
+  padding: 0.7px 3px;
+  position: absolute;
+  top: 80%;
+  right: 55%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.change-button:hover {
+  background-color: #45a049; /* Cambia el color al pasar el mouse */
+}
+
+/*boton continue*/
+.continue-button {
+  background-color: #d7e6f500;
+  color: #b94e4e00;
+  font-size: 1em;
+  padding: 0.7px 3px;
+  position: absolute;
+  top: 80%;
+  left: 55%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Transición suave */
+}
+
+.continue-button:hover {
+  background-color: #45a049; /* Cambia el color al pasar el mouse */
+}
+
+.total-rent-box {
+  border: 3px solid #45a049;
+  padding: 20px;
+  margin: 20px 20px;
+  text-align: center;
+  background-color: #e6e3e3;
+  border-radius: 15px;
+}
+
+.occupant-names-box {
+  border: 3px solid #45a049;
+  padding: 20px;
+  margin: 20px 20px;
+  text-align: center;
+  background-color: #e6e3e3;
+  border-radius: 15px;
+}
+
+.confirmation-question-box {
+  margin: 140px 20px;
+  text-align: center;
+}
+
+.title-container-Inicio {
+  text-align: center;
+}
+
+.vertical-bar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 10px; /* Ajusta el ancho de la barra */
+  background-color: #337736; /* Ajusta el color de la barra */
+}
+
+.left-bar {
+  left: 0;
+}
+
+.right-bar {
+  right: 0;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+}
+
+.title-container-Decision {
+  margin-top: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.decision-box {
+  border: 3px solid #45a049;
+  padding: 20px;
+  margin: 20px 20px;
+  text-align: center;
+  background-color: #e6e3e3;
+  border-radius: 15px;
+}
+
+/*
+.button-decision {
+}
+*/
