@@ -1,31 +1,42 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./App.css";
 import { useNavigate } from "react-router-dom";
 
-function App() {
-  const [showMessage, setShowMessage] = useState(false);
-  const dropdownRef = useRef(null);
-  const navigate = useNavigate();
-  const [totalRent, setTotalRent] = useState(1000);
-  const [totalOccupants, setTotalOccupants] = useState(0);
-  const [occupantNames, setOccupantNames] = useState([]);
-  const [showError, setShowError] = useState(false);
 
+//* QUÉ PODEMOS IMPLEMENTAR AL CLICKAR EN EL BOTON INTERROGACION?? *//
+//* ENDPOINT API CREAR = http://localhost:8000/Crear
+//* ENDPOINT API DECISION = http://localhost:8000/Decision
+
+function App() {
+  const [showMessage, setShowMessage] = useState(false);// Variable para mostrar el mensaje de ayuda si no se han rellenado todos los nombres de los ocupantes
+  const dropdownRef = useRef(null);
+  const navigate = useNavigate(); // Variable para navegar entre páginas
+  const [totalRent, setTotalRent] = useState(1000);// Variable para guardar el precio total del alquiler
+  const [totalOccupants, setTotalOccupants] = useState(0);// Variable para guardar el número total de ocupantes
+  const [occupantNames, setOccupantNames] = useState([]);// Variable para guardar los nombres de los ocupantes
+  const [showError, setShowError] = useState(false);// Variable para mostrar el mensaje de error
+  const [showRoomsError, setShowRoomsError] = useState(false);// Variable para mostrar el mensaje de error
+  const high = 5; 
+
+  // Función para cambiar el precio total del alquiler
   const handleTotalRentChange = (e) => {
     setTotalRent(parseFloat(e.target.value));
   };
 
+  // Función para cambiar el número total de ocupantes
   const handleTotalOccupantsChange = (occupants) => {
     setTotalOccupants(occupants);
     setOccupantNames(Array(occupants).fill(""));
   };
 
+  // Función para cambiar el nombre de un ocupante
   const handleOccupantNameChange = (index, name) => {
     const newOccupantNames = [...occupantNames];
     newOccupantNames[index] = name;
     setOccupantNames(newOccupantNames);
   };
 
+  // Función para mostrar u ocultar el mensaje de ayuda si no se han rellenado todos los nombres de los ocupantes
   const toggleMessage = () => {
     setShowMessage(!showMessage);
     if (!showMessage && dropdownRef.current) {
@@ -35,19 +46,48 @@ function App() {
     }
   };
 
+  //Funcion para manejar el boton de interrogacion
+  const handleDropdownClick = () => {
+    setShowMessage(!showMessage);
+  };
+
+  // Función para navegar a la siguiente página
   const handleNavigate = () => {
     // Verifica si todos los nombres de los ocupantes han sido rellenados
     const allNamesFilled = occupantNames.every(
       (name) => name && name.trim() !== ""
     );
-
+    // Si no todos los nombres han sido rellenados, muestra el mensaje de error
     if (!allNamesFilled) {
       // Si no todos los nombres han sido rellenados, muestra el mensaje de error
       setShowError(true);
-    } else {
+    } 
+    else if(totalOccupants === 0){
+      setShowRoomsError(true);
+    }
+    else {
       // Si todos los nombres han sido rellenados, navega a la siguiente página
-      navigate("/Inicio", {
-        state: { totalRent, totalOccupants, occupantNames },
+      fetch('http://localhost:8000/Crear', {
+        method: 'POST', //Uso el método POST para enviar los datos a la API, si fuera el método GET lo usaria para recibir datos de la API
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        //Body con las variables que se han rellenado y se envian a Gelo (  hab : int , alt : int,precio : int)
+        body: JSON.stringify({ hab: totalOccupants, high, precio: totalRent}),
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Aquí puedes usar los datos devueltos por la API
+        navigate("/Inicio", {
+          // Guarda las variables que se han rellenado y los datos que se han recibido de la API
+          state: { totalRent, totalOccupants, occupantNames, 
+            apiData: data
+           },
+           //apiData: data son los datos que se han recibido de la API
+        });
+      })
+      .catch((error) => {
+        console.error('Error:', error);
       });
     }
   };
@@ -63,7 +103,7 @@ function App() {
             </button>
           </div>
         </div>
-        <p>Calculadora de división de alquiler</p>
+        <p>"Introducción"</p>
       </header>
       <div className="calculator-container">
         <div className="calculator-inputs">
@@ -73,7 +113,6 @@ function App() {
             value={`${totalRent}€`}
             onChange={handleTotalRentChange}
             className="input-field"
-            step="100"
           />
         </div>
         <div className="calculator-occupants">
@@ -102,6 +141,11 @@ function App() {
         {showError && (
           <div className="error-message">
             Por favor, rellena los nombres de los ocupantes.
+          </div>
+        )}
+        {showRoomsError && (
+          <div className="error-message">
+            Por favor, selecciona el número de habitaciones.
           </div>
         )}
       </div>

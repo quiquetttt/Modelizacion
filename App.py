@@ -4,13 +4,11 @@ from pydantic import BaseModel
 from typing import List, Dict, Any, Tuple
 import networkx as nx
 
-
-
 app = FastAPI()
     
 class inputCrear(BaseModel):
     hab : int
-    alt : int
+    high : int
     precio : int
 
 class outputCrear(BaseModel):
@@ -32,7 +30,7 @@ class outputDecision(BaseModel):
     nodo : int   
     jugador : int
     precios : List[int]
-    final : bool
+    final : List[int]
 
 @app.post('/Crear')
 def crear(input_crear : inputCrear ):
