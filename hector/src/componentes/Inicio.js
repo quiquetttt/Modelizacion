@@ -35,8 +35,16 @@ const handleNavigate2 = async () => {
   .then(data => {
     // Aquí puedes usar los datos devueltos por la API
     const decisor = data.jugador // Extrae solo los atributos necesarios de apiData
-    navigate(`/Inicio/${decisor}`, {
-      state: { apiData: data },
+    navigate(`/Inicio/${occupantNames[decisor-1]}`, {
+      state: {  occupantNames,
+        apiData: { // Añade el output de la API Crear al estado
+        lNodos: data.lNodos,
+        lAristas: data.lAristas,
+        nodo: data.nodo,
+        height: data.height,
+        jugador: data.jugador,
+        precios: data.precios
+      }},
     });
   })
   .catch((error) => {

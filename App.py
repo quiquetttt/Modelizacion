@@ -1,13 +1,21 @@
 from fastapi import FastAPI
-from algoritmo import *
+import algoritmo as a
 from pydantic import BaseModel
 from typing import List, Dict, Any, Tuple
 import networkx as nx
-
+from fastapi.middleware.cors import CORSMiddleware
 
 
 app = FastAPI()
-    
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # o ["*"] para permitir desde cualquier origen
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["*"],
+)
+
 class inputCrear(BaseModel):
     hab : int
     height : int
@@ -17,7 +25,7 @@ class outputCrear(BaseModel):
     lNodos: List[Tuple[int,Dict[str,Any]]]
     lAristas: List[Tuple[int,int]]
     nodo : int
-    heiht : int
+    height : int
     jugador : int
     precios : List[int]
 
@@ -40,14 +48,14 @@ class outputDecision(BaseModel):
 
 @app.post('/Crear/')
 def crear(input_crear : inputCrear ):
-    G = construccionTriangulo(input_crear.alt-2,input_crear.precio)
-    centro = sacarCentro(G)
+    G = a.construccionTriangulo(input_crear.height-2,input_crear.precio)
+    centro = a.sacarCentro(G)
     nodo = centro[0]
     jugador = (G.nodes[centro[0]]["jugador"])
     lNodos = list(G.nodes(data=True))
     lAristas = list(G.edges)
     precios = G.nodes[centro[0]]["precio"]
-    output_crear = outputCrear(lNodos= lNodos, lAristas=lAristas,  nodo=nodo,jugador=jugador, precios=precios)
+    output_crear = outputCrear(lNodos= lNodos, lAristas=lAristas,  nodo=nodo,height=input_crear.height,jugador=jugador, precios=precios)
     return output_crear
 
 @app.post('/Decision/')
@@ -56,22 +64,23 @@ def decision(input_decision : inputDecision):
     G.add_nodes_from(input_decision.lNodos)
     G.add_edges_from(input_decision.lAristas)
     G.graph["altura"] = input_decision.height
-    centro = sacarCentro(G)
+    centro = a.sacarCentro(G)
     lNodos = list(G.nodes(data=True))
     lAristas = list(G.edges)
     G.nodes[centro[input_decision.nodo]]["decision"] = input_decision.decision
     nodo = input_decision.nodo +1
     jugador = G.nodes[centro[nodo]]["jugador"]
     precios = G.nodes[centro[nodo]]["precio"]
-    preTriangulo = trianguloPerfecto(G,nodo)
-    nombre1 = getJugador(G,preTriangulo[0])
-    habitacion1 = getDecision(G,preTriangulo[0])
-    precio1 = getPrecio(G,preTriangulo[0])[habitacion1-1]
-    nombre2 = getJugador(G,preTriangulo[1])
-    habitacion2 = getDecision(G,preTriangulo[1])
-    precio2 = getPrecio(G,preTriangulo[1])[habitacion2-1] 
-    nombre3 = getJugador(G,preTriangulo[2])
-    habitacion3 = getDecision(G,preTriangulo[2])
-    precio3 = getPrecio(G,preTriangulo[2])[habitacion3-1]       
+    preTriangulo = a.trianguloPerfecto(G,nodo)
+    jugador1 = a.getJugador(G,preTriangulo[0])
+    habitacion1 = a.getDecision(G,preTriangulo[0])
+    precio1 = a.getPrecio(G,preTriangulo[0])[habitacion1-1]
+    jugador2 = a.getJugador(G,preTriangulo[1])
+    habitacion2 = a.getDecision(G,preTriangulo[1])
+    precio2 = a.getPrecio(G,preTriangulo[1])[habitacion2-1] 
+    jugador3 = a.getJugador(G,preTriangulo[2])
+    habitacion3 = a.getDecision(G,preTriangulo[2])
+    precio3 = a.getPrecio(G,preTriangulo[2])[habitacion3-1]       
     triangulo = [{'jugador':jugador1,'precio':precio1 , 'habitacion':habitacion1}, {'jugador':jugador2,'precio':precio2 , 'habitacion':habitacion2},{'jugador':jugador3,'precio':precio3 , 'habitacion':habitacion3}]
-    output_crear = outputCrear(lNodos= lNodos, lAristas=lAristas,  nodo=0,jugador=jugador, precios=precios,final=triangulo)
+    output_crear = outputCrear(lNodos= lNodos, lAristas=lAristas,  nodo=0,height= input_decision.height,jugador=jugador, precios=precios,final=triangulo)
+    return output_crear
