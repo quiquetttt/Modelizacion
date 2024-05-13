@@ -4,7 +4,7 @@ import App from "../App";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-
+/*PENSAR LO DE DECISION*/
 
 export function Inicio() {
   const navigate = useNavigate();
@@ -14,15 +14,7 @@ export function Inicio() {
   const totalRent = location.state?.totalRent;
   const totalOccupants = location.state?.totalOccupants;
   const occupantNames = location.state?.occupantNames;
-  const apiData = location.state?.apiData; //PARA ACCEDER A LOS DATOS RECIBIDOS POR LA API CREAR const apiData desde App.js
-  //SIENDO apiData:   
-   //lNodos: List[Tuple[int,Dict[str,Any]]]
-   // lAristas: List[Tuple[int,int]]
-   //nodo : int
-   //jugador : int
-  //precios : List[int]
-
-  //Definir el indice
+  const height = 5;
   const decision = 0;
 
   /*Navega al inicio*/
@@ -32,26 +24,25 @@ export function Inicio() {
 
   /*Navega a la página de decisión*/
 const handleNavigate2 = () => {
-  const { lNodos, lAristas, nodo } = apiData; // Extrae solo los atributos necesarios de apiData
-  fetch('http://localhost:8000/Decision', {
+  fetch('http://localhost:8000/Crear', {
     method: 'POST', // Cambiado a POST porque estamos enviando datos
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(apiData, decision),
+    body: JSON.stringify({hab: totalOccupants, height, precio: totalRent}),
   })
   .then(response => response.json())
-  .then(data => {
+  then(data => {
     // Aquí puedes usar los datos devueltos por la API
-    navigate(`/Inicio/${occupantNames[decision]}`, {
-      state: { apiData: data, decision },
+    const decisor = data.jugador // Extrae solo los atributos necesarios de apiData
+    navigate(`/Inicio/${decisor}`, {
+      state: { apiData: data },
     });
   })
   .catch((error) => {
     console.error('Error:', error);
   }); 
 };
-
 
 
   return (

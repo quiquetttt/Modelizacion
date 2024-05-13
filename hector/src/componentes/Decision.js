@@ -4,40 +4,57 @@ import App from "../App";
 import { useNavigate } from "react-router-dom";
 
 
+
 export function Decision() {
   const location = useLocation();
   /*Guardamos las variables que hemos recibido de la página anterior*/
   const totalRent = location.state?.totalRent;
   const totalOccupants = location.state?.totalOccupants;
   const occupantNames = location.state?.occupantNames;
-  const apiData = location.state?.apiData; //PARA ACCEDER A LOS DATOS RECIBIDOS POR LA API CREAR const apiData desde Inicio.js
+  const apiData = location.state?.apiData; //PARA ACCEDER A LOS DATOS RECIBIDOS POR LA API CREAR desde Inicio.js
+  // lNodos: List[Tuple[int,Dict[str,Any]]]
+  //lAristas: List[Tuple[int,int]]
+  //nodo : int
+  //jugador : int
+  //precios : List[int]
+  //height : int
   const navigate = useNavigate(); 
-  const decision = 0;
 
-  useEffect(() => {
-    const { lNodos, lAristas, nodo } = apiData; // Extrae solo los atributos necesarios de apiData
+  const decisor = location.state?.decisor;
+
+ 
+  const handleDecision = (index) => {
+    // Extrae solo los atributos necesarios de apiData
+    const { lNodos, lAristas, nodo, height } = apiData;
     fetch('http://localhost:8000/Decision', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ apiData, decision}),
+      body: JSON.stringify({ apiData, decision: index }),
     })
     .then(response => response.json())
     .then(data => {
-      // Aquí puedes usar los datos devueltos por la API
-      navigate(`/Inicio/${occupantNames[decision]}`, {
-        state: { apiData: data },
-      });
+      const final = data.final; // Extrae solo los atributos necesarios de data
+      const decisor = data.jugador;
+      if (final === null) {
+        // Si la respuesta es null, recarga la página con los outputs de la API
+        navigate(`/Inicio/${decisor}`, {
+          state: { apiData: data },
+        });
+      } else {
+        // Si la respuesta no es null, navega a Final.js
+        navigate('/Final', {
+          state: { final },
+        });
+      }
     })
     .catch((error) => {
       console.error('Error:', error);
     });
-  }, [decision]); // Este efecto se ejecutará cada vez que 'indice' cambie
+  };
 
- 
 
-  const handleDecision = () => {};
   if (!occupantNames) return null;
   return (
     <div>
@@ -52,7 +69,7 @@ export function Decision() {
             <p>Habitación {index + 1} por Precio</p>
 
             <div className="button-decision">
-              <button onClick={handleDecision}></button>
+              <button onClick={() => handleDecision(index)}>Elegir opcion(index+1)</button>
             </div>
           </div>
         ))}

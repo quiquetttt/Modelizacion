@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import "./App.css";
-import { useNavigate } from "react-router-dom";
 
 
 //* QUÉ PODEMOS IMPLEMENTAR AL CLICKAR EN EL BOTON INTERROGACION?? *//
@@ -16,7 +15,6 @@ function App() {
   const [occupantNames, setOccupantNames] = useState([]);// Variable para guardar los nombres de los ocupantes
   const [showError, setShowError] = useState(false);// Variable para mostrar el mensaje de error
   const [showRoomsError, setShowRoomsError] = useState(false);// Variable para mostrar el mensaje de error
-  const high = 5; 
 
   // Función para cambiar el precio total del alquiler
   const handleTotalRentChange = (e) => {
@@ -67,29 +65,10 @@ function App() {
     }
     else {
       // Si todos los nombres han sido rellenados, navega a la siguiente página
-      fetch('http://localhost:8000/Crear', {
-        method: 'POST', //Uso el método POST para enviar los datos a la API, si fuera el método GET lo usaria para recibir datos de la API
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        //Body con las variables que se han rellenado y se envian a Gelo (  hab : int , alt : int,precio : int)
-        body: JSON.stringify({ hab: totalOccupants, high, precio: totalRent}),
-      })
-      .then(response => response.json())
-      .then(data => {
-        // Aquí puedes usar los datos devueltos por la API
         navigate("/Inicio", {
-          // Guarda las variables que se han rellenado y los datos que se han recibido de la API
-          state: { totalRent, totalOccupants, occupantNames, 
-            apiData: data
-           },
-           //apiData: data son los datos que se han recibido de la API
+          state: { totalRent, totalOccupants, occupantNames, },
         });
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-    }
+      }
   };
 
   return (

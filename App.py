@@ -8,7 +8,7 @@ app = FastAPI()
     
 class inputCrear(BaseModel):
     hab : int
-    high : int
+    height : int
     precio : int
 
 class outputCrear(BaseModel):
@@ -17,12 +17,14 @@ class outputCrear(BaseModel):
     nodo : int
     jugador : int
     precios : List[int]
+    height : int
 
 class inputDecision(BaseModel):
     lNodos: List[Tuple[int,Dict[str,Any]]]
     lAristas: List[Tuple[int,int]]
     nodo : int
     decision: int
+    height : int
 
 class outputDecision(BaseModel):
     lNodos: List[Tuple[int,Dict[str,Any]]]
@@ -30,7 +32,8 @@ class outputDecision(BaseModel):
     nodo : int   
     jugador : int
     precios : List[int]
-    final : List[int]
+    final : List[Dict[str,Any]]
+    height : int
 
 @app.post('/Crear')
 def crear(input_crear : inputCrear ):
