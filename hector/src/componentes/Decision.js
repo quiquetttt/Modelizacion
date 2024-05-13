@@ -23,10 +23,10 @@ export function Decision() {
   const decisor = location.state?.decisor;
 
  
-  const handleDecision = (index) => {
+  const handleDecision = async(index) => {
     // Extrae solo los atributos necesarios de apiData
     const { lNodos, lAristas, nodo, height } = apiData;
-    fetch('http://localhost:8000/Decision', {
+    await fetch('http://localhost:8000/Decision/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

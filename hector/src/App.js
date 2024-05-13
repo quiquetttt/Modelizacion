@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import "./App.css";
+import { useNavigate } from "react-router-dom";
 
 
 //* QUÉ PODEMOS IMPLEMENTAR AL CLICKAR EN EL BOTON INTERROGACION?? *//
@@ -9,7 +10,7 @@ import "./App.css";
 function App() {
   const [showMessage, setShowMessage] = useState(false);// Variable para mostrar el mensaje de ayuda si no se han rellenado todos los nombres de los ocupantes
   const dropdownRef = useRef(null);
-  const navigate = useNavigate(); // Variable para navegar entre páginas
+  const navigate = useNavigate();
   const [totalRent, setTotalRent] = useState(1000);// Variable para guardar el precio total del alquiler
   const [totalOccupants, setTotalOccupants] = useState(0);// Variable para guardar el número total de ocupantes
   const [occupantNames, setOccupantNames] = useState([]);// Variable para guardar los nombres de los ocupantes

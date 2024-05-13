@@ -1,8 +1,53 @@
 import networkx as nx
+from random import randint
 
 def trianguloPerfecto(G,nodo):
-    adyacentes = list(G.neihbors(nodo))
-    print(adyacentes)
+    capa = G.nodes[nodo]["capa"]
+    nodo1 = nodo-1
+    nodo2 = nodo - capa
+    #Triangulo izquierda arriba
+    if getDecision(G,nodo)==getDecision(G,nodo1) and getDecision(G,nodo) == getDecision(G,nodo2) and getDecision(G,nodo1) == getDecision(G,nodo2):
+       return [nodo,nodo1,nodo2]
+    #Triangulo arriba
+    nodo1 = nodo - capa +1
+    if getDecision(G,nodo)==getDecision(G,nodo1) and getDecision(G,nodo) == getDecision(G,nodo2) and getDecision(G,nodo1) == getDecision(G,nodo2):
+       return [nodo,nodo1,nodo2]
+    #Triangulo derecha arriba
+    nodo2 = nodo +1
+    if getDecision(G,nodo)==getDecision(G,nodo1) and getDecision(G,nodo) == getDecision(G,nodo2) and getDecision(G,nodo1) == getDecision(G,nodo2):
+       return [nodo,nodo1,nodo2]
+    #Triangulo izquierda abajo
+    nodo1 = nodo -1
+    nodo2 = nodo + capa
+    if getDecision(G,nodo)==getDecision(G,nodo1) and getDecision(G,nodo) == getDecision(G,nodo2) and getDecision(G,nodo1) == getDecision(G,nodo2):
+       return [nodo,nodo1,nodo2]
+    #Triangulo abajo
+    nodo1 = nodo + capa +1
+    if getDecision(G,nodo)==getDecision(G,nodo1) and getDecision(G,nodo) == getDecision(G,nodo2) and getDecision(G,nodo1) == getDecision(G,nodo2):
+       return [nodo,nodo1,nodo2]
+    #Triangulo derecha abajo
+    nodo2 = nodo +1
+    if getDecision(G,nodo)==getDecision(G,nodo1) and getDecision(G,nodo) == getDecision(G,nodo2) and getDecision(G,nodo1) == getDecision(G,nodo2):
+       return [nodo,nodo1,nodo2]
+    return None    
+
+def getDecision(G,nodo):
+    return G.nodes[nodo]["decision"]
+
+def getJugador(G,nodo):
+    return G.nodes[nodo]["jugador"]
+
+def getPrecio(G,nodo):
+    return G.nodes[nodo]["precio"]
+
+def getPrecio1(G,nodo):
+    return G.nodes[nodo]["precio"][0]
+
+def getPrecio2(G,nodo):
+    return G.nodes[nodo]["precio"][1]
+
+def getPrecio3(G,nodo):
+    return G.nodes[nodo]["precio"][2]
 
 
 def construccionTriangulo(x,precio):
@@ -70,9 +115,9 @@ def sacarCentro(G):
 
 def lateralIzq(G):
     res = []
-    altura = G.graph["altura"]
+    alt = G.graph["altura"]
     nodo = 0 
-    for i in range(1,altura):
+    for i in range(1,alt):
         nodo = nodo+i
         G.nodes[nodo]["decision"] = 1
         res.append(nodo)    
@@ -180,19 +225,21 @@ def precioDerecha(G,nodo):
 
 def precioAbajo(G,nodo):
     return  G.graph["altura"] - G.nodes[nodo]["capa"]
+
+
+def decisionAleatoria(G):
+    centro = sacarCentro(G)
+    for nodo in centro:
+        G.nodes[nodo]["decision"] = randint(1,3)
+
+
+
 """
 G =construccionTriangulo(4,1000)
-nodos = list(G.nodes)
-nodos0 = [elem for elem in nodos if G.nodes[elem]["decision"]==0]
-nodos1 = [elem for elem in nodos if G.nodes[elem]["decision"]==1]
-nodos2 = [elem for elem in nodos if G.nodes[elem]["decision"]==2]
-nodos3 = [elem for elem in nodos if G.nodes[elem]["decision"]==3]
-print("Nodos decision 0")
-print(nodos0)
-print("Nodos decision 1")
-print(nodos1)
-print("Nodos decision 2")
-print(nodos2)
-print("Nodos decision 3")
-print(nodos3)
+decisionAleatoria(G)
+centro = sacarCentro(G)
+for nodo in centro:
+    triangulo = trianguloPerfecto(G,nodo)
+    if triangulo is not None:
+        print(triangulo)
 """

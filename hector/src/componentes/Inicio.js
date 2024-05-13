@@ -23,8 +23,8 @@ export function Inicio() {
   };
 
   /*Navega a la página de decisión*/
-const handleNavigate2 = () => {
-  fetch('http://localhost:8000/Crear', {
+const handleNavigate2 = async () => {
+  await fetch('http://localhost:8000/Crear/', {
     method: 'POST', // Cambiado a POST porque estamos enviando datos
     headers: {
       'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ const handleNavigate2 = () => {
     body: JSON.stringify({hab: totalOccupants, height, precio: totalRent}),
   })
   .then(response => response.json())
-  then(data => {
+  .then(data => {
     // Aquí puedes usar los datos devueltos por la API
     const decisor = data.jugador // Extrae solo los atributos necesarios de apiData
     navigate(`/Inicio/${decisor}`, {
