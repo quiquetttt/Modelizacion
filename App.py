@@ -34,7 +34,6 @@ class inputDecision(BaseModel):
     lAristas: List[Tuple[int,int]]
     nodo : int
     height: int
-    alt : int
     decision: int
 
 class outputDecision(BaseModel):
@@ -55,7 +54,7 @@ def crear(input_crear : inputCrear ):
     lNodos = list(G.nodes(data=True))
     lAristas = list(G.edges)
     precios = G.nodes[centro[0]]["precio"]
-    output_crear = outputCrear(lNodos= lNodos, lAristas=lAristas,  nodo=nodo,height=input_crear.height,jugador=jugador, precios=precios)
+    output_crear = outputCrear(lNodos= lNodos, lAristas=lAristas,  nodo=0,height=input_crear.height,jugador=jugador, precios=precios)
     return output_crear
 
 @app.post('/Decision/')
@@ -67,20 +66,24 @@ def decision(input_decision : inputDecision):
     centro = a.sacarCentro(G)
     lNodos = list(G.nodes(data=True))
     lAristas = list(G.edges)
-    G.nodes[centro[input_decision.nodo]]["decision"] = input_decision.decision
-    nodo = input_decision.nodo +1
-    jugador = G.nodes[centro[nodo]]["jugador"]
-    precios = G.nodes[centro[nodo]]["precio"]
+    G.nodes[input_decision.nodo]["decision"] = input_decision.decision
+    nodo = centro[input_decision.nodo +1]
+    jugador = G.nodes[nodo]["jugador"]
+    precios = G.nodes[nodo]["precio"]
     preTriangulo = a.trianguloPerfecto(G,nodo)
-    jugador1 = a.getJugador(G,preTriangulo[0])
-    habitacion1 = a.getDecision(G,preTriangulo[0])
-    precio1 = a.getPrecio(G,preTriangulo[0])[habitacion1-1]
-    jugador2 = a.getJugador(G,preTriangulo[1])
-    habitacion2 = a.getDecision(G,preTriangulo[1])
-    precio2 = a.getPrecio(G,preTriangulo[1])[habitacion2-1] 
-    jugador3 = a.getJugador(G,preTriangulo[2])
-    habitacion3 = a.getDecision(G,preTriangulo[2])
-    precio3 = a.getPrecio(G,preTriangulo[2])[habitacion3-1]       
-    triangulo = [{'jugador':jugador1,'precio':precio1 , 'habitacion':habitacion1}, {'jugador':jugador2,'precio':precio2 , 'habitacion':habitacion2},{'jugador':jugador3,'precio':precio3 , 'habitacion':habitacion3}]
-    output_crear = outputCrear(lNodos= lNodos, lAristas=lAristas,  nodo=0,height= input_decision.height,jugador=jugador, precios=precios,final=triangulo)
+    if preTriangulo is not None:
+        jugador1 = a.getJugador(G,preTriangulo[0])
+        habitacion1 = a.getDecision(G,preTriangulo[0])
+        precio1 = a.getPrecio(G,preTriangulo[0])[habitacion1-1]
+        jugador2 = a.getJugador(G,preTriangulo[1])
+        habitacion2 = a.getDecision(G,preTriangulo[1])
+        precio2 = a.getPrecio(G,preTriangulo[1])[habitacion2-1] 
+        jugador3 = a.getJugador(G,preTriangulo[2])
+        habitacion3 = a.getDecision(G,preTriangulo[2])
+        precio3 = a.getPrecio(G,preTriangulo[2])[habitacion3-1]       
+        triangulo = [{'jugador':jugador1,'precio':precio1 , 'habitacion':habitacion1}, {'jugador':jugador2,'precio':precio2 , 'habitacion':habitacion2},{'jugador':jugador3,'precio':precio3 , 'habitacion':habitacion3}]
+        print("Hay final")
+    else:
+        triangulo = [{'jugador':-1}]
+    output_crear = outputCrear(lNodos= lNodos, lAristas=lAristas,  nodo=input_decision.nodo+1,height= input_decision.height,jugador=jugador, precios=precios,final=triangulo)
     return output_crear
