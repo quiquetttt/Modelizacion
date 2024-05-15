@@ -101,7 +101,6 @@ body {
   margin: 20px auto;
 }
 
-
 .calculator-occupants button {
   margin-right: 5px; /* Espacio entre los botones de ocupantes */
   background-color: grey; /* Color de fondo rojo */
@@ -380,4 +379,13 @@ body {
 
 .calculate-button button:hover {
   background-color: #45a049;
+}
+
+.final-message-box {
+  border: 3px solid #45a049;
+  padding: 20px;
+  margin: 20px 20px;
+  text-align: center;
+  background-color: #e6e3e3;
+  border-radius: 15px;
 }
