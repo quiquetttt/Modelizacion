@@ -1,10 +1,13 @@
-import React from 'react'
-import { useNavigate, useLocation } from 'react-router-dom';
+import React from "react";
+import { useLocation } from "react-router-dom";
 
-export const Final = () => {
-  const navigate = useNavigate();
+export function Final() {
   const location = useLocation();
-  const final = location.state?.apiData?.final;
+  const apiData = location.state?.apiData;
+  const occupantNames = apiData?.occupantNames;
+  const final = apiData?.final;
+
+  if (!occupantNames || !final) return null;
   return (
     <div>
       <p>Dan Puterisimo</p>
