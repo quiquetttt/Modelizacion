@@ -24,7 +24,12 @@ export function Decision() {
 
  
   const handleDecision = (index) => {
-    // Extrae solo los atributos necesarios de apiData
+    // Verifica que apiData tenga todos los datos necesarios
+    if (!apiData || !apiData.lNodos || !apiData.lAristas || !apiData.nodo || !apiData.height) {
+      console.error("Datos incompletos en apiData");
+      return;
+    }
+    //Extrae solo los atributos necesarios de apiData
     const { lNodos, lAristas, nodo, height } = apiData;
     fetch('http://localhost:8000/Decision/', {
       method: 'POST',
@@ -33,7 +38,12 @@ export function Decision() {
       },
       body: JSON.stringify({ apiData, decision: index }),
     })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Error en la solicitud');
+      }
+      return response.json();
+    })
     .then(data => {
       const final = data.final; // Extrae solo los atributos necesarios de data
       const decisor = data.jugador;
