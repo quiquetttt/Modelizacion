@@ -10,6 +10,9 @@ export function Decision() {
   /*Guardamos las variables que hemos recibido de la página anterior*/
   const occupantNames = location.state?.occupantNames;
   const apiData = location.state?.apiData; //PARA ACCEDER A LOS DATOS RECIBIDOS POR LA API CREAR desde Inicio.js
+  const precios = apiData?.precios;
+  const decisor = location.state?.decisor;
+
   // lNodos: List[Tuple[int,Dict[str,Any]]]
   //lAristas: List[Tuple[int,int]]
   //nodo : int
@@ -18,7 +21,6 @@ export function Decision() {
   //height : int
   const navigate = useNavigate(); 
 
-  const decisor = location.state?.decisor;
 
  
   const handleDecision = (index) => {
@@ -35,15 +37,17 @@ export function Decision() {
     .then(data => {
       const final = data.final; // Extrae solo los atributos necesarios de data
       const decisor = data.jugador;
-      if (final === null) {
+      if (final[0]['jugador'] === -1) {
         // Si la respuesta es null, recarga la página con los outputs de la API
-        navigate(`/Inicio/${decisor}`, {
+        navigate(`/Inicio/${occupantNames[decisor-1]}`, {
           state: { apiData: data },
         });
       } else {
-        // Si la respuesta no es null, navega a Final.js
+        // Si la respuesta no es null, navega a Final.js mandando el atributo final que pinaremos en la página
         navigate('/Final', {
-          state: { final },
+          state: { apiData:{
+            final: data.final,
+          } },
         });
       }
     })
@@ -53,7 +57,7 @@ export function Decision() {
   };
 
 
-  if (!occupantNames) return null;
+  if (!occupantNames || !precios  ) return null;
   return (
     <div>
       <div className="title-container-Decision">
@@ -64,10 +68,10 @@ export function Decision() {
         {occupantNames.map((occupant, index) => (
           <div key={index}>
             <h3>OPCION {index + 1}</h3>
-            <p>Habitación {index + 1} por Precio</p>
+            <p>Habitación {index + 1} por {precios[index]} €</p>
 
             <div className="button-decision">
-              <button onClick={() => handleDecision(index)}>Elegir opcion(index+1)</button>
+              <button onClick={() => handleDecision(index)}>{precios[index]}</button>
             </div>
           </div>
         ))}

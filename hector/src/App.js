@@ -93,7 +93,22 @@ function App() {
             value={`${totalRent}€`}
             onChange={handleTotalRentChange}
             className="input-field"
-          />
+            onInput={(e) => {
+              const inputValue = e.target.value.replace('€', '');
+              if (inputValue === '') {
+                e.target.value = '0€'; // establecer a '0€' cuando la entrada está vacía
+                setTotalRent(0); // actualizar el estado de totalRent
+              } else {
+                const numericValue = parseInt(inputValue, 10);
+                if (isNaN(numericValue)) {
+                  e.target.value = '0€';
+                  setTotalRent(0); // actualizar el estado de totalRent
+                } else {
+                  e.target.value = `${numericValue}€`;
+                  setTotalRent(numericValue); // actualizar el estado de totalRent
+                }
+              }
+            }}/>
         </div>
         <div className="calculator-occupants">
           <p>Select Total Rooms:</p>
