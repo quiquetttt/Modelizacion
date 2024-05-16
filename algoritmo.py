@@ -6,28 +6,28 @@ def trianguloPerfecto(G,nodo):
     nodo1 = nodo-1
     nodo2 = nodo - capa
     #Triangulo izquierda arriba
-    if getDecision(G,nodo)==getDecision(G,nodo1) and getDecision(G,nodo) == getDecision(G,nodo2) and getDecision(G,nodo1) == getDecision(G,nodo2):
+    if getDecision(G,nodo)!=getDecision(G,nodo1) and getDecision(G,nodo) != getDecision(G,nodo2) and getDecision(G,nodo1) != getDecision(G,nodo2):
        return [nodo,nodo1,nodo2]
     #Triangulo arriba
     nodo1 = nodo - capa +1
-    if getDecision(G,nodo)==getDecision(G,nodo1) and getDecision(G,nodo) == getDecision(G,nodo2) and getDecision(G,nodo1) == getDecision(G,nodo2):
+    if getDecision(G,nodo)!=getDecision(G,nodo1) and getDecision(G,nodo) != getDecision(G,nodo2) and getDecision(G,nodo1) != getDecision(G,nodo2):
        return [nodo,nodo1,nodo2]
     #Triangulo derecha arriba
     nodo2 = nodo +1
-    if getDecision(G,nodo)==getDecision(G,nodo1) and getDecision(G,nodo) == getDecision(G,nodo2) and getDecision(G,nodo1) == getDecision(G,nodo2):
+    if getDecision(G,nodo)!=getDecision(G,nodo1) and getDecision(G,nodo) != getDecision(G,nodo2) and getDecision(G,nodo1) != getDecision(G,nodo2):
        return [nodo,nodo1,nodo2]
     #Triangulo izquierda abajo
     nodo1 = nodo -1
     nodo2 = nodo + capa
-    if getDecision(G,nodo)==getDecision(G,nodo1) and getDecision(G,nodo) == getDecision(G,nodo2) and getDecision(G,nodo1) == getDecision(G,nodo2):
+    if getDecision(G,nodo)!=getDecision(G,nodo1) and getDecision(G,nodo) != getDecision(G,nodo2) and getDecision(G,nodo1) != getDecision(G,nodo2):
        return [nodo,nodo1,nodo2]
     #Triangulo abajo
     nodo1 = nodo + capa +1
-    if getDecision(G,nodo)==getDecision(G,nodo1) and getDecision(G,nodo) == getDecision(G,nodo2) and getDecision(G,nodo1) == getDecision(G,nodo2):
+    if getDecision(G,nodo)!=getDecision(G,nodo1) and getDecision(G,nodo) != getDecision(G,nodo2) and getDecision(G,nodo1) != getDecision(G,nodo2):
        return [nodo,nodo1,nodo2]
     #Triangulo derecha abajo
     nodo2 = nodo +1
-    if getDecision(G,nodo)==getDecision(G,nodo1) and getDecision(G,nodo) == getDecision(G,nodo2) and getDecision(G,nodo1) == getDecision(G,nodo2):
+    if getDecision(G,nodo)!=getDecision(G,nodo1) and getDecision(G,nodo) != getDecision(G,nodo2) and getDecision(G,nodo1) != getDecision(G,nodo2):
        return [nodo,nodo1,nodo2]
     return None    
 
@@ -178,11 +178,11 @@ def etiquetar_centro(G):
 
 def precioGrafo(G):
     for nodo in G.nodes:
-        G.nodes[nodo]["precio"] = precioNodo(nodo,G)
+       G.nodes[nodo]["precio"] = precioNodo(nodo,G)
 
 def reglaDe3(valor,G):
     precio = G.graph["precio"]
-    altura = G.graph["altura"]-1
+    altura = G.graph["altura"]
     return (valor*precio)/altura
 
 def precioNodo(nodo,G):
@@ -224,7 +224,7 @@ def precioDerecha(G,nodo):
     return contador
 
 def precioAbajo(G,nodo):
-    return  G.graph["altura"] - G.nodes[nodo]["capa"]
+    return  G.graph["altura"] - G.nodes[nodo]["capa"] +1 
 
 
 def decisionAleatoria(G):
@@ -234,8 +234,10 @@ def decisionAleatoria(G):
 
 
 
+
+
+
 """
-G =construccionTriangulo(4,1000)
 decisionAleatoria(G)
 centro = sacarCentro(G)
 for nodo in centro:

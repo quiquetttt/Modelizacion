@@ -84,6 +84,6 @@ def decision(input_decision : inputDecision):
         triangulo = [{'jugador':jugador1,'precio':precio1 , 'habitacion':habitacion1}, {'jugador':jugador2,'precio':precio2 , 'habitacion':habitacion2},{'jugador':jugador3,'precio':precio3 , 'habitacion':habitacion3}]
         print("Hay final")
     else:
-        triangulo = [{'jugador':-1}]
-    output_crear = outputCrear(lNodos= lNodos, lAristas=lAristas,  nodo=input_decision.nodo+1,height= input_decision.height,jugador=jugador, precios=precios,final=triangulo)
-    return output_crear
+        triangulo = None
+    output_decision = outputDecision(lNodos= lNodos, lAristas=lAristas,  nodo=input_decision.nodo+1,height= input_decision.height,jugador=jugador, precios=precios,final=triangulo)
+    return output_decision
