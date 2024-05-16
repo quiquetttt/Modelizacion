@@ -54,7 +54,7 @@ def crear(input_crear : inputCrear ):
     lNodos = list(G.nodes(data=True))
     lAristas = list(G.edges)
     precios = G.nodes[centro[0]]["precio"]
-    output_crear = outputCrear(lNodos= lNodos, lAristas=lAristas,  nodo=0,height=input_crear.height,jugador=jugador, precios=precios)
+    output_crear = outputCrear(lNodos= lNodos, lAristas=lAristas,  nodo=-1,height=input_crear.height,jugador=jugador, precios=precios)
     return output_crear
 
 @app.post('/Decision/')
@@ -66,8 +66,9 @@ def decision(input_decision : inputDecision):
     centro = a.sacarCentro(G)
     lNodos = list(G.nodes(data=True))
     lAristas = list(G.edges)
-    G.nodes[input_decision.nodo]["decision"] = input_decision.decision
     nodo = centro[input_decision.nodo +1]
+    print(nodo)
+    G.nodes[nodo]["decision"] = input_decision.decision
     jugador = G.nodes[nodo]["jugador"]
     precios = G.nodes[nodo]["precio"]
     preTriangulo = a.trianguloPerfecto(G,nodo)
@@ -84,6 +85,6 @@ def decision(input_decision : inputDecision):
         triangulo = [{'jugador':jugador1,'precio':precio1 , 'habitacion':habitacion1}, {'jugador':jugador2,'precio':precio2 , 'habitacion':habitacion2},{'jugador':jugador3,'precio':precio3 , 'habitacion':habitacion3}]
         print("Hay final")
     else:
-        triangulo = None
+        triangulo = [{'jugador':-1}]
     output_decision = outputDecision(lNodos= lNodos, lAristas=lAristas,  nodo=input_decision.nodo+1,height= input_decision.height,jugador=jugador, precios=precios,final=triangulo)
     return output_decision

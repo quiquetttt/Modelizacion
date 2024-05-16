@@ -20,7 +20,7 @@ export function Final() {
         {final.map((item, index) => (
           <p key={index}>
             Jugador: {occupantNames[item.jugador - 1]}, Precio: {item.precio},
-            Habitación: {item.habitacion}
+            Habitación: {item.habitacion+1}
           </p>
         ))}
       </div>
