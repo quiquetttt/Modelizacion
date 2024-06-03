@@ -6,28 +6,34 @@ def trianguloPerfecto(G,nodo):
     nodo1 = nodo-1
     nodo2 = nodo - capa
     #Triangulo izquierda arriba
-    if getDecision(G,nodo)!=getDecision(G,nodo1) and getDecision(G,nodo) != getDecision(G,nodo2) and getDecision(G,nodo1) != getDecision(G,nodo2) and getDecision(G,nodo1)!=0 and getDecision(G,nodo2)!=0:
+    if getDecision(G,nodo)!=getDecision(G,nodo1) and getDecision(G,nodo) != getDecision(G,nodo2) and getDecision(G,nodo1) != getDecision(G,nodo2) and getDecision(G,nodo1)!=-1 and getDecision(G,nodo2)!=-1:
+       print(f"Nodo : {nodo} decision {getDecision(G,nodo)} , Nodo : {nodo1} decision {getDecision(G,nodo1)} ,Nodo : {nodo2} decision {getDecision(G,nodo2)} ")
        return [nodo,nodo1,nodo2]
     #Triangulo arriba
     nodo1 = nodo - capa +1
-    if getDecision(G,nodo)!=getDecision(G,nodo1) and getDecision(G,nodo) != getDecision(G,nodo2) and getDecision(G,nodo1) != getDecision(G,nodo2) and getDecision(G,nodo1)!=0 and getDecision(G,nodo2)!=0:
+    if getDecision(G,nodo)!=getDecision(G,nodo1) and getDecision(G,nodo) != getDecision(G,nodo2) and getDecision(G,nodo1) != getDecision(G,nodo2) and getDecision(G,nodo1)!=-1 and getDecision(G,nodo2)!=-1:
+       print(f"Nodo : {nodo} decision {getDecision(G,nodo)}, Nodo : {nodo1} decision {getDecision(G,nodo1)} ,Nodo : {nodo2} decision {getDecision(G,nodo2)}  ")
        return [nodo,nodo1,nodo2]
     #Triangulo derecha arriba
     nodo2 = nodo +1
-    if getDecision(G,nodo)!=getDecision(G,nodo1) and getDecision(G,nodo) != getDecision(G,nodo2) and getDecision(G,nodo1) != getDecision(G,nodo2) and getDecision(G,nodo1)!=0 and getDecision(G,nodo2)!=0:
+    if getDecision(G,nodo)!=getDecision(G,nodo1) and getDecision(G,nodo) != getDecision(G,nodo2) and getDecision(G,nodo1) != getDecision(G,nodo2) and getDecision(G,nodo1)!=-1 and getDecision(G,nodo2)!=-1:
+       print(f"Nodo : {nodo} decision {getDecision(G,nodo)}, Nodo : {nodo1} decision {getDecision(G,nodo1)} ,Nodo : {nodo2} decision {getDecision(G,nodo2)} ")
        return [nodo,nodo1,nodo2]
     #Triangulo izquierda abajo
     nodo1 = nodo -1
     nodo2 = nodo + capa
-    if getDecision(G,nodo)!=getDecision(G,nodo1) and getDecision(G,nodo) != getDecision(G,nodo2) and getDecision(G,nodo1) != getDecision(G,nodo2) and getDecision(G,nodo1)!=0 and getDecision(G,nodo2)!=0:
+    if getDecision(G,nodo)!=getDecision(G,nodo1) and getDecision(G,nodo) != getDecision(G,nodo2) and getDecision(G,nodo1) != getDecision(G,nodo2) and getDecision(G,nodo1)!=-1 and getDecision(G,nodo2)!=-1:
+       print(f"Nodo : {nodo} decision {getDecision(G,nodo)}, Nodo : {nodo1} decision {getDecision(G,nodo1)} ,Nodo : {nodo2} decision {getDecision(G,nodo2)} ")
        return [nodo,nodo1,nodo2]
     #Triangulo abajo
     nodo1 = nodo + capa +1
-    if getDecision(G,nodo)!=getDecision(G,nodo1) and getDecision(G,nodo) != getDecision(G,nodo2) and getDecision(G,nodo1) != getDecision(G,nodo2) and getDecision(G,nodo1)!=0 and getDecision(G,nodo2)!=0:
+    if getDecision(G,nodo)!=getDecision(G,nodo1) and getDecision(G,nodo) != getDecision(G,nodo2) and getDecision(G,nodo1) != getDecision(G,nodo2) and getDecision(G,nodo1)!=-1 and getDecision(G,nodo2)!=-1:
+       print(f"Nodo : {nodo} decision {getDecision(G,nodo)}, Nodo : {nodo1} decision {getDecision(G,nodo1)} ,Nodo : {nodo2} decision {getDecision(G,nodo2)} ")
        return [nodo,nodo1,nodo2]
     #Triangulo derecha abajo
     nodo2 = nodo +1
-    if getDecision(G,nodo)!=getDecision(G,nodo1) and getDecision(G,nodo) != getDecision(G,nodo2) and getDecision(G,nodo1) != getDecision(G,nodo2) and getDecision(G,nodo1)!=0 and getDecision(G,nodo2)!=0:
+    if getDecision(G,nodo)!=getDecision(G,nodo1) and getDecision(G,nodo) != getDecision(G,nodo2) and getDecision(G,nodo1) != getDecision(G,nodo2) and getDecision(G,nodo1)!=-1 and getDecision(G,nodo2)!=-1:
+       print(f"Nodo : {nodo} decision {getDecision(G,nodo)}, Nodo : {nodo1} decision {getDecision(G,nodo1)} ,Nodo : {nodo2} decision {getDecision(G,nodo2)} ")
        return [nodo,nodo1,nodo2]
     return None    
 
@@ -58,7 +64,7 @@ def construccionTriangulo(x,precio):
     vertices = []
     for k in range(n):
         vertices.append(k)
-    atributoComun = {"decision":0}
+    atributoComun = {"decision":-1}
     G.add_nodes_from(vertices, **atributoComun)
     auxver = []
     aristas = []
@@ -182,17 +188,17 @@ def precioGrafo(G):
 
 def reglaDe3(valor,G):
     precio = G.graph["precio"]
-    altura = G.graph["altura"]
+    altura = G.graph["altura"]-1
     return (valor*precio)/altura
 
 def precioNodo(nodo,G):
     precio = []
     if nodo == 0:
-        precio = [0,0,reglaDe3(5,G)]
+        precio = [0,0,reglaDe3(G.graph["altura"]-1,G)]
     elif nodo ==1:
-        precio = [0,reglaDe3(1,G),reglaDe3(4,G)]
+        precio = [0,reglaDe3(1,G),reglaDe3(G.graph["altura"]-2,G)]
     elif nodo == 2:
-        precio = [reglaDe3(1,G),0,reglaDe3(4,G)]
+        precio = [reglaDe3(1,G),0,reglaDe3(G.graph["altura"]-2,G)]
     else:
         precio.append(reglaDe3(precioIzquierda(G,nodo),G))
         precio.append(reglaDe3(precioAbajo(G,nodo),G))
@@ -224,7 +230,7 @@ def precioDerecha(G,nodo):
     return contador
 
 def precioAbajo(G,nodo):
-    return  G.graph["altura"] - G.nodes[nodo]["capa"] +1 
+    return  G.graph["altura"] - G.nodes[nodo]["capa"] 
 
 
 def decisionAleatoria(G):
@@ -233,20 +239,10 @@ def decisionAleatoria(G):
         G.nodes[nodo]["decision"] = randint(1,3)
 
 
-
-
-
+"""
 G = construccionTriangulo(3,1000)
-G.nodes[4]["decision"] = 1
-print(G.nodes[1]["decision"])
-print(G.nodes[2]["decision"])
-print(G.nodes[4]["decision"])
-print(trianguloPerfecto(G,4))
-"""
-decisionAleatoria(G)
-centro = sacarCentro(G)
-for nodo in centro:
-    triangulo = trianguloPerfecto(G,nodo)
-    if triangulo is not None:
-        print(triangulo)
-"""
+print(G.nodes)
+print(sacarCentro(G))
+print(sacarLaterales(G))
+
+trianguloPerfecto(G,4) """
