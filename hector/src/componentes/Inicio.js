@@ -12,7 +12,7 @@ export function Inicio() {
   const totalRent = location.state?.totalRent;
   const totalOccupants = location.state?.totalOccupants;
   const occupantNames = location.state?.occupantNames;
-  const height = 5;
+  const height = 11;
   const decision = 0;
 
   /*Navega al inicio*/

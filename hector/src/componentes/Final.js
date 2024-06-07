@@ -23,13 +23,13 @@ export function Final() {
         </div>
       </header>
       <div className="final-background">
-        <div class="vertical-bar left-bar"></div>
-        <div class="vertical-bar right-bar"></div>
+        <div className="vertical-bar left-bar"></div>
+        <div className="vertical-bar right-bar"></div>
         <div className="final-message-box">
           <h3>Resultado Final:</h3>
           {final.map((item, index) => (
             <p key={index}>
-              Jugador: {occupantNames[item.jugador - 1]}, Precio: {item.precio},
+              Jugador: {occupantNames[item.jugador - 1]}, <strong>Precio: {item.precio}€</strong>,
               Habitación: {item.habitacion + 1}
             </p>
           ))}

@@ -13,7 +13,7 @@ function App() {
   const [totalOccupants, setTotalOccupants] = useState(0);
   const [occupantNames, setOccupantNames] = useState([]);
   const [errorModalContent, setErrorModalContent] = useState("");
-
+  
   const handleTotalRentChange = (e) => {
     setTotalRent(parseFloat(e.target.value));
   };
