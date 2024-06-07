@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import "./App.css";
 import { useNavigate } from "react-router-dom";
 
-
 //* QUÉ PODEMOS IMPLEMENTAR AL CLICKAR EN EL BOTON INTERROGACION?? *//
 //* ENDPOINT API CREAR = http://localhost:8000/Crear
 //* ENDPOINT API DECISION = http://localhost:8000/Decision
@@ -58,7 +57,7 @@ function App() {
         <div className="title-container">
           <img src="/bitmap.png" alt="Logo" className="logo" />
           <div className="main-title-container">
-            <h1 className="main-title">"AL-KILA"</h1>
+            <h1 className="main-title">AL-KILA</h1>
           </div>
         </div>
       </header>
@@ -109,7 +108,9 @@ function App() {
                   key={index}
                   type="text"
                   value={occupantNames[index]}
-                  onChange={(e) => handleOccupantNameChange(index, e.target.value)}
+                  onChange={(e) =>
+                    handleOccupantNameChange(index, e.target.value)
+                  }
                   placeholder={`Occupant ${index + 1} Name`}
                   className="input-field"
                 />
@@ -127,7 +128,9 @@ function App() {
       {showMessage && (
         <div className="modal">
           <div className="modal-content">
-            <span className="close" onClick={handleCloseModal}>&times;</span>
+            <span className="close" onClick={handleCloseModal}>
+              &times;
+            </span>
             <p>{errorModalContent}</p>
           </div>
         </div>

@@ -1,0 +1,132 @@
+/* Estilos para la página de Inicio */
+
+/* Títulos */
+.title-container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.title-container h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #28a745; /* Color verde */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+  margin-left: 10px; /* Ajusta la separación del logo */
+  margin-top: 1px; /* Ajusta la separación del logo */
+}
+
+/* Barras laterales */
+.vertical-bar {
+  position: absolute;
+  width: 10px;
+  height: 100%;
+  background-color: #333;
+  z-index: -1;
+}
+
+.left-bar {
+  left: 0;
+}
+
+.right-bar {
+  right: 0;
+}
+
+/* Caja de resumen del alquiler */
+/* Recuadros de información */
+.total-rent-box,
+.occupant-names-box {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  padding: 15px;
+  max-width: 400px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.total-rent-box {
+  margin: 100px auto 10px; /* Margen para el recuadro de precio total */
+}
+
+.occupant-names-box {
+  margin: 50px auto 10px; /* Reducir el margen superior para subir el recuadro */
+}
+
+.total-rent-box h2 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.total-rent-box p {
+  font-size: 16px;
+  color: #555;
+  margin: 0;
+}
+
+.occupant-names-box h2 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.occupant-names-box p {
+  font-size: 16px;
+  color: #555;
+  margin: 0;
+}
+
+/* Caja de pregunta de confirmación */
+.confirmation-question-box {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: #28a745; /* Color verde */
+  padding: 10px 15px; /* Reducir el padding */
+  border-radius: 5px; /* Esquinas más pequeñas */
+  display: inline-block;
+}
+
+.confirmation-question-box h3 {
+  font-size: 16px; /* Reducir el tamaño del texto */
+  font-weight: bold;
+  color: white; /* Texto en blanco */
+  text-shadow: none; /* Eliminar la sombra de texto */
+  margin: 0; /* Eliminar los márgenes predeterminados */
+}
+
+/* Botones */
+.change-button,
+.continue-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.change-button button,
+.continue-button button {
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #333;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.change-button button:hover,
+.continue-button button:hover {
+  background-color: #555;
+}
+
+/* Mover el botón "Continuar" más a la derecha */
+.continue-button {
+  margin-left: 50px; /* Añadir margen izquierdo automático */
+}

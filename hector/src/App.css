@@ -11,6 +11,11 @@ body {
   padding: 20px;
 }
 
+.Decision {
+  text-align: center;
+  padding: 20px;
+}
+
 .calculator-container {
   background-color: #ffffff; /* Fondo blanco */
   border-radius: 10px;
@@ -99,7 +104,6 @@ body {
   padding: 20px;
   max-width: 400px;
   margin: 100px auto;
-
 }
 
 .calculator-occupants button {
@@ -329,19 +333,40 @@ body {
 }
 
 .title-container-Decision {
-  margin-top: 10%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: fixed; /* Fija la posición en la parte superior */
+  text-align: center;
+  background: rgba(255, 255, 255, 0.7); /* Fondo blanco semitransparente */
+  top: 0;
+  width: 100%; /* Hace que el ancho sea del 100% */
+}
+
+.title-container-Decision h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #28a745; /* Color verde */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  display: inline-block;
 }
 
 .decision-box {
-  border: 3px solid #45a049;
+  border: 3px solid #ffffff;
   padding: 20px;
   margin: 20px 20px;
   text-align: center;
-  background-color: #e6e3e3;
   border-radius: 15px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  padding: 15px;
+  max-width: 1000px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  /* Centrar el elemento */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .calculator-buttons button {
@@ -379,41 +404,64 @@ body {
 }
 
 .final-message-box {
-  border: 3px solid #45a049;
+  border: 3px solid #ffffff;
   padding: 20px;
   margin: 20px 20px;
   text-align: center;
-  background-color: #e6e3e3;
   border-radius: 15px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  padding: 15px;
+  max-width: 1000px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  /* Centrar el elemento */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /*PIJADAS*/
 /*APP.JS*/
-.main-title {
-  font-size: 3rem;
-  font-weight: bold;
-  color: #28a745; /* Color verde */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  display: inline-block;
-  margin-left: 10px; /* Ajusta la separación del logo */
-  margin-top: 1px; /* Ajusta la separación del logo */
-}
-
-.subtitle {
-  font-size: 1.5rem;
-  color: #555;
-}
-
-.logo {
-  margin-top: 2px;
-  height: px;
-  width: 100px;
-  vertical-align: middle;
+.header {
+  position: fixed;
+  top: -40px; /* Mover el encabezado más arriba */
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco difuminado */
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  z-index: 1; /* Asegura que el encabezado esté por encima de otros elementos */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .title-container {
   display: flex;
   align-items: center;
+  height: 90px;
+}
+
+.main-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #28a745;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  margin-right: 10px;
+}
+
+.logo {
+  height: 120px; /* Aumentar el tamaño del logo */
+  width: auto;
+}
+.title-container {
+  display: flex;
+  align-items: center;
+  height: 30px;
 }
 .roof-background {
   position: fixed; /* Cambiado de 'relative' a 'fixed' */
@@ -422,9 +470,20 @@ body {
   right: 0;
   bottom: 0; /* Añadido para ocupar toda la altura */
   padding-top: 100px;
-  background: url('/fondo-moderno-calle-tokio.jpg') no-repeat center center;
+  background: url("/fondo-moderno-calle-tokio.jpg") no-repeat center center;
   background-size: cover;
   z-index: -1; /* Añadido para que el contenido esté por encima del fondo */
+}
+
+.decision-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("/fondo-moderno-calle-tokio.jpg") no-repeat center center;
+  background-size: cover;
+  z-index: -1;
 }
 
 .roof-background::before {
@@ -444,6 +503,18 @@ body {
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 2px;
+}
+
+.calculator-inputs-decision {
+  position: fixed; /* Fija la posición en la parte superior */
+  width: 100%; /* Hace que el ancho sea del 100% */
+  background: rgba(255, 255, 255, 0.9); /* Fondo blanco semi-transparente */
+  padding: 2px; /* Reduce el padding para hacer la barra más fina */
+  border-radius: 0px;
+  margin-bottom: 0px;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 .input-field {
@@ -523,4 +594,63 @@ body {
 .close:hover,
 .close:focus {
   color: #000; /* Cambiado el color del texto al pasar el mouse */
+}
+
+.button-decision button {
+  background-color: #28a745; /* Color verde */
+  color: white; /* Texto blanco para contraste */
+  border: none; /* Elimina el borde predeterminado */
+  padding: 5px 10px; /* Añade algo de padding */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px; /* Añade bordes redondeados */
+}
+
+.title-container-Final {
+  position: fixed; /* Fija la posición en la parte superior */
+  text-align: center;
+  background: rgba(255, 255, 255, 0.7); /* Fondo blanco semitransparente */
+  top: 0;
+  width: 100%; /* Hace que el ancho sea del 100% */
+}
+
+.title-container-Final h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #28a745; /* Color verde */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+}
+
+.final-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("/fondo-moderno-calle-tokio.jpg") no-repeat center center;
+  background-size: cover;
+  z-index: -1;
+}
+
+.button-final button {
+  background-color: #28a745; /* Color verde */
+  color: white; /* Texto blanco para contraste */
+  border: none; /* Elimina el borde predeterminado */
+  padding: 10px 20px; /* Añade algo de padding */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px; /* Añade bordes redondeados */
+  z-index: 1000; /* Asegura que el botón aparezca por encima de otros elementos */
+  position: absolute; /* Cambia a absolute */
+  bottom: 0; /* Posiciona en la parte inferior */
+  right: 0; /* Posiciona a la derecha */
 }
