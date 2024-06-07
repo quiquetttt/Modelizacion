@@ -73,13 +73,13 @@ def decision(input_decision : inputDecision):
     if preTriangulo is not None:
         jugador1 = a.getJugador(G,preTriangulo[0])
         habitacion1 = a.getDecision(G,preTriangulo[0]) -1
-        precio1 = a.getPrecio(G,preTriangulo[0])[habitacion1]
+        precio1 = media(a.getPrecio(G,preTriangulo[0])[habitacion1],a.getPrecio(G,preTriangulo[1])[habitacion1],a.getPrecio(G,preTriangulo[2])[habitacion1])
         jugador2 = a.getJugador(G,preTriangulo[1])
         habitacion2 = a.getDecision(G,preTriangulo[1])-1
-        precio2 = a.getPrecio(G,preTriangulo[1])[habitacion2] 
+        precio2 = media(a.getPrecio(G,preTriangulo[0])[habitacion2],a.getPrecio(G,preTriangulo[1])[habitacion2],a.getPrecio(G,preTriangulo[2])[habitacion2])
         jugador3 = a.getJugador(G,preTriangulo[2])
         habitacion3 = a.getDecision(G,preTriangulo[2]) -1
-        precio3 = a.getPrecio(G,preTriangulo[2])[habitacion3]       
+        precio3 = media(a.getPrecio(G,preTriangulo[0])[habitacion3],a.getPrecio(G,preTriangulo[1])[habitacion3],a.getPrecio(G,preTriangulo[2])[habitacion3])      
         triangulo = [{'jugador':jugador1,'precio':precio1 , 'habitacion':habitacion1}, {'jugador':jugador2,'precio':precio2 , 'habitacion':habitacion2},{'jugador':jugador3,'precio':precio3 , 'habitacion':habitacion3}]
         jugador = -1
         precios = []
@@ -90,3 +90,6 @@ def decision(input_decision : inputDecision):
         triangulo = [{'jugador':-1}]
     output_decision = outputDecision(lNodos= lNodos, lAristas=lAristas,  nodo=input_decision.nodo+1,height= input_decision.height,jugador=jugador, precios=precios,final=triangulo)
     return output_decision
+
+def media(x: int, y: int, z: int) -> float:
+    return round((x + y + z) / 3,2)
